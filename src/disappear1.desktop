@@ -13,4 +13,4 @@ X-KDE-PluginInfo-Version=1.0
 X-KDE-PluginInfo-Category=Appearance
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=false
-X-KWin-Exclusive-Category=open-close
+X-KWin-Exclusive-Category=close-window
