@@ -2,7 +2,7 @@
 
 "Disappear 1" is a KWin effect that animates the disappearing of windows.
 
-## Installing
+## Installation
 
 ### Arch Linux
 
