@@ -27,6 +27,7 @@ target_link_libraries (kwin4_effect_disappear1
         Qt5::Core
         Qt5::Gui
         KF5::ConfigCore
+        KF5::ConfigGui
         KF5::CoreAddons
         KF5::WindowSystem
         KWinEffects::KWinEffects
