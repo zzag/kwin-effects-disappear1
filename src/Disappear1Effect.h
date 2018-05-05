@@ -18,6 +18,9 @@
 #ifndef EFFECTS_DISAPPEAR1_H
 #define EFFECTS_DISAPPEAR1_H
 
+// own
+#include "Timeline.h"
+
 // kwineffects
 #include <kwineffects.h>
 
@@ -25,7 +28,6 @@
 #include <QHash>
 #include <QSet>
 #include <QString>
-#include <QTimeLine>
 
 class Disappear1Effect : public KWin::Effect {
 public:
@@ -53,7 +55,7 @@ private:
 
 private:
     QSet<QString> m_blacklist;
-    QHash<KWin::EffectWindow*, QTimeLine*> m_animations;
+    QHash<KWin::EffectWindow*, Timeline> m_animations;
     int m_duration;
     qreal m_opacity;
     qreal m_shift;
