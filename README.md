@@ -48,6 +48,6 @@ git clone https://github.com/zzag/kwin-effects-disappear1.git
 cd kwin-effects-disappear1
 mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-make -jN
+make
 sudo make install
 ```
