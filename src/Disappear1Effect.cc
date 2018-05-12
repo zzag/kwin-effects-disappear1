@@ -20,8 +20,18 @@
 // KConfigSkeleton
 #include "disappear1config.h"
 
+// Qt
+#include <QtMath>
+
 namespace {
 const int Disappear1WindowRole = 0x22A98300;
+const qreal s_fov = qTan(qDegreesToRadians(30.0));
+
+inline qreal distanceToScale(qreal distance, qreal size)
+{
+    Q_ASSERT(size > 0);
+    return 1.0 - qMin(1.0, 2.0 * distance * s_fov / size);
+}
 }
 
 Disappear1Effect::Disappear1Effect()
@@ -93,8 +103,13 @@ void Disappear1Effect::paintWindow(KWin::EffectWindow* w, int mask, QRegion regi
     if (it != m_animations.cend()) {
         const qreal t = (*it).value();
 
-        data.setYTranslation(interpolate(0, m_shift, t));
-        data.setZTranslation(interpolate(0, m_distance, t));
+        const qreal scale = distanceToScale(interpolate(0, m_distance, t), qMax(w->width(), w->height()));
+        const qreal shift = interpolate(0, m_shift, t);
+
+        data.setXScale(scale);
+        data.setYScale(scale);
+        data.setXTranslation(0.5 * (1 - scale) * w->width());
+        data.setYTranslation(0.5 * (1 - scale) * w->height() + shift);
         data.multiplyOpacity(interpolate(1, m_opacity, t));
     }
 
