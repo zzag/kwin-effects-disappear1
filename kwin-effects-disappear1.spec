@@ -1,5 +1,5 @@
 Name:           kwin-effects-disappear1
-Version:        1.3
+Version:        1.4
 Release:        1%{?dist}
 Summary:        Effect that animates the disappearing of windows
 
@@ -46,6 +46,9 @@ make %{?_smp_mflags} -C %{_target_platform}
 %{_kf5_qtplugindir}/kwin/effects/plugins/libkwin4_effect_disappear1.so
 
 %changelog
+* Sat May 19 2018 Vlad Zagorodniy <vladzzag@gmail.com> - 1.4-1
+- New upstream release
+
 * Mon May 14 2018 Vlad Zagorodniy <vladzzag@gmail.com> - 1.3-1
 - New upstream release
 
