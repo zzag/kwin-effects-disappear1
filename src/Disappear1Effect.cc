@@ -15,23 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// own
 #include "Disappear1Effect.h"
 
 // KConfigSkeleton
 #include "disappear1config.h"
 
-// Qt
-#include <QtMath>
-
 namespace {
 const int Disappear1WindowRole = 0x22A98300;
-const qreal s_fov = qTan(qDegreesToRadians(30.0));
-
-inline qreal distanceToScale(qreal distance, qreal size)
-{
-    Q_ASSERT(size > 0);
-    return 1.0 - qMin(1.0, 2.0 * distance * s_fov / size);
-}
 }
 
 Disappear1Effect::Disappear1Effect()
@@ -66,8 +57,7 @@ void Disappear1Effect::reconfigure(ReconfigureFlags flags)
             ? Disappear1Config::duration()
             : 160);
     m_opacity = Disappear1Config::opacity();
-    m_shift = Disappear1Config::shift();
-    m_distance = Disappear1Config::distance();
+    m_scale = Disappear1Config::scale();
 }
 
 void Disappear1Effect::prePaintScreen(KWin::ScreenPrePaintData& data, int time)
@@ -108,13 +98,12 @@ void Disappear1Effect::paintWindow(KWin::EffectWindow* w, int mask, QRegion regi
     if (it != m_animations.cend()) {
         const qreal t = (*it).value();
 
-        const qreal scale = distanceToScale(interpolate(0, m_distance, t), qMax(w->width(), w->height()));
-        const qreal shift = interpolate(0, m_shift, t);
+        const qreal scale = interpolate(1, m_scale, t);
 
         data.setXScale(scale);
         data.setYScale(scale);
         data.setXTranslation(0.5 * (1 - scale) * w->width());
-        data.setYTranslation(0.5 * (1 - scale) * w->height() + shift);
+        data.setYTranslation((1 - scale) * w->height());
         data.multiplyOpacity(interpolate(1, m_opacity, t));
     }
 
@@ -137,8 +126,7 @@ bool Disappear1Effect::isActive() const
 
 bool Disappear1Effect::supported()
 {
-    return KWin::effects->isOpenGLCompositing()
-        && KWin::effects->animationsSupported();
+    return KWin::effects->animationsSupported();
 }
 
 bool Disappear1Effect::shouldAnimate(const KWin::EffectWindow* w) const

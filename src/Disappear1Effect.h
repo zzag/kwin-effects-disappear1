@@ -58,8 +58,7 @@ private:
     QHash<KWin::EffectWindow*, Timeline> m_animations;
     int m_duration;
     qreal m_opacity;
-    qreal m_shift;
-    qreal m_distance;
+    qreal m_scale;
 };
 
 inline int Disappear1Effect::requestedEffectChainPosition() const
